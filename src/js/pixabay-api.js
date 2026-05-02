@@ -1,11 +1,18 @@
-const mainUrl =
-  'https://pixabay.com/api/?key=45764445-59cc1762e95f1291ab4a968b5';
-export const data = searchedValue =>
-  fetch(
-    `${mainUrl}&q=${searchedValue}&image_type=photo&orientation=horizontal&safesearch=true`
-  ).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
+import axios from 'axios';
+
+const API_KEY = '55690304-17dcdc78479c7615073810898';
+const BASE_URL = 'https://pixabay.com/api/';
+
+export const fetchImages = async query => {
+  const response = await axios.get(BASE_URL, {
+    params: {
+      key: API_KEY,
+      q: query,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+      per_page: 40,
+    },
   });
+  return response.data;
+};
